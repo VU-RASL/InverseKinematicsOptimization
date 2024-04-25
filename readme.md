@@ -2,6 +2,10 @@
 
 _Isaiah Osborne_
 
+## But first... I have to apologize for some things
+
+I messed up my previous repository -- what's the word? -- royally. It's still available here: <https://github.com/VU-RASL/InverseKinematics> to see some older history... It didn't just "appear".
+
 ## Project Description
 
 _Improving Augmented Reality Pose Redirection Using Potential Functions and Gradient Descent_

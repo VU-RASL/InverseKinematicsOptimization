@@ -734,7 +734,7 @@ namespace BioIK {
                 var subtraction = identity.Subtract(nullspace);
                 
                 var grad = Matrix<double>.Build.DenseOfColumnArrays(G);
-                var inter = grad.TransposeThisAndMultiply(nullspace) * 0.5;
+                var inter = grad.TransposeThisAndMultiply(nullspace) * 10;
                 
                 for (int i = 0; i < 7; i++) {
                     Solution[i] += inter[0,i];

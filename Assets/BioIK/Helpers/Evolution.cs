@@ -751,13 +751,13 @@ namespace BioIK {
         {   
             // Debug.Log("When you're done testing, uncomment me!!");
 
-            // theta1 = ConvertRadians(theta1);
-            // theta2 = ConvertRadians(theta2);
-            // theta3 = ConvertRadians(theta3);
-            // theta4 = ConvertRadians(theta4);
-            // theta5 = ConvertRadians(theta5);
-            // theta6 = ConvertRadians(theta6);
-            // theta7 = ConvertRadians(theta7);
+            theta1 = ConvertRadians(theta1);
+            theta2 = ConvertRadians(theta2);
+            theta3 = ConvertRadians(theta3);
+            theta4 = ConvertRadians(theta4);
+            theta5 = ConvertRadians(theta5);
+            theta6 = ConvertRadians(theta6);
+            theta7 = ConvertRadians(theta7);
 
             // var jacobian = DenseMatrix.OfArray(new double[,] {{0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}});
             var jacobian = DenseMatrix.OfArray(new double[,] {{0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}});

@@ -4,7 +4,7 @@ _Isaiah Osborne_
 
 ## But first... I have to apologize for some things
 
-I messed up my previous repository -- what's the word? -- royally. It's still available here: <https://github.com/VU-RASL/InverseKinematics> to see some older history... It didn't just "appear".
+I messed up my previous repository -- what's the word? -- royally. (Some very weird issues with Git LFS and authentication?) It's still available here: <https://github.com/VU-RASL/InverseKinematics>. Check it out if you want to see some older history...
 
 ## Project Description
 
@@ -24,14 +24,8 @@ $$
 
 In an engineering setting, this is used to calculate the velocity of the end of the link (usually a manipulator, but in this case a hand). However, this could also be used as part of our gradient descrnt, allowing the algorithm to explore on the gradient for both the main objective ($J_1^* \dot q_1$) and the secondary objective ($(I_n - J_1^*J_1)(-\gamma \frac{dp}{d\theta})^T$). The two objectives will be the ones in [^5]. By replacing the gradient step in BioIK with this expression, I'm hoping to be able to optimize both of the variables concurrently. Depending on time constraints, I will try to refine the weighting metric from [^5], potentially replacing the logistic function with another weighting function.
 
-<<<<<<< HEAD
-## What's it look like?
-
 ![image](https://github.com/VU-RASL/InverseKinematicsOptimization/assets/107141169/4e5eb119-2de8-4d51-ba01-684020ede3e2)
 
-
-=======
->>>>>>> 749aed43273db6ad390403325fcfd2a01135b297
 ## Technical Details
 
 I am planning on using Unity and the Microsoft Mixed Reality Toolkit for my project. I am also going to use and modify the BioIK package for the inverse kinematics optimization. My final project will be deployed using either the MRTK simulator or an actual Hololens 2. 
@@ -44,13 +38,12 @@ I am planning on using Unity and the Microsoft Mixed Reality Toolkit for my proj
 
 <https://github.com/sebastianstarke/BioIK>
 
-<<<<<<< HEAD
-=======
 ## Thank you!
+
+Thank you to Alexandra Watkins in the RASL lab for all of her help with making this project a reality!
 
 <https://akintokinematics.com/from-dh-parameters-to-inverse-kinematics/>
 
->>>>>>> 749aed43273db6ad390403325fcfd2a01135b297
 ## Citations
 
 [^1]: "Automatic Supervisory Control of the Configuration and Behavior of Multibody Mechanisms," in _IEEE Transactions on Systems, Man, and Cybernetics_, vol. 7, no. 12, pp. 868-871, Dec. 1977, doi: 10.1109/TSMC.1977.4309644.

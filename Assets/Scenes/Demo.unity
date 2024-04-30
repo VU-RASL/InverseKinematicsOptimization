@@ -2586,7 +2586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8110664055982005406, guid: f443144a6d408c34bb8a7d70a73644c4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 624
       objectReference: {fileID: 0}
     - target: {fileID: 8110664055982005406, guid: f443144a6d408c34bb8a7d70a73644c4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -17374,7 +17374,7 @@ MonoBehaviour:
   Segment: {fileID: 705307331}
   Weight: 1
   Target: {fileID: 1482411330}
-  TPX: 0.7999999523162842
+  TPX: -1.700000286102295
   TPY: 1.8370000123977661
   TPZ: 0.806999921798706
   MaximumError: 0.001

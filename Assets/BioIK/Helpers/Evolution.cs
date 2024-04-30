@@ -725,7 +725,7 @@ namespace BioIK {
                     }
                 }
             }
-               
+            
             if (NullspaceOptimize)
             {
                 var jacobian = ComputeJacobian(Solution[0], Solution[1], Solution[2], Solution[3], Solution[4], Solution[5], Solution[6]);
@@ -734,17 +734,21 @@ namespace BioIK {
                 var subtraction = identity.Subtract(nullspace);
                 
                 var grad = Matrix<double>.Build.DenseOfColumnArrays(G);
-                var inter = grad.TransposeThisAndMultiply(nullspace) * 10;
+                var inter = grad.TransposeThisAndMultiply(nullspace) * 0.75;
                 
                 for (int i = 0; i < 7; i++) {
-                    Solution[i] += inter[0,i];
+                    Solution[i] += ConvertDegrees(inter[0,i]);
                 }
             }
             Value = Function(Solution);
         }
 
-        private double ConvertRadians(double theta) {
-            return theta * System.Math.PI / 180;
+        private double ConvertRadians(double degrees) {
+            return degrees * System.Math.PI / 180;
+        }
+
+        private double ConvertDegrees(double radians) {
+            return radians * 180 / System.Math.PI;
         }
 
         private DenseMatrix ComputeJacobian(double theta1, double theta2, double theta3, double theta4, double theta5, double theta6, double theta7)
@@ -830,6 +834,7 @@ namespace BioIK {
         private Matrix<double> ComputeInverse(DenseMatrix j) {
             return j.PseudoInverse();
         }
+        // don't use this...
         public void Minimise(double[] values, double timeout) {
             for(int i=0; i<Dimensionality; i++) {
                 Solution[i] = values[i];
@@ -864,15 +869,21 @@ namespace BioIK {
                     }
                 }
             }
-
-            var jacobian = ComputeJacobian(Solution[0], Solution[1], Solution[2], Solution[3], Solution[4], Solution[5], Solution[6]);
-            var inverse = jacobian.PseudoInverse();
-            var nullspace = inverse.Multiply(jacobian);
-            var subtraction = identity.Subtract(nullspace);
-            Debug.Log(nullspace);
-            // Debug.Log(nullspace);
-            // Debug.Log(string.Join(" ", G));
-            // Debug.Log(nullspace);
+            // don't touch!!
+            if (NullspaceOptimize)
+            {
+                var jacobian = ComputeJacobian(Solution[0], Solution[1], Solution[2], Solution[3], Solution[4], Solution[5], Solution[6]);
+                var inverse = jacobian.PseudoInverse();
+                var nullspace = inverse.Multiply(jacobian);
+                var subtraction = identity.Subtract(nullspace);
+                
+                var grad = Matrix<double>.Build.DenseOfColumnArrays(G);
+                var inter = grad.TransposeThisAndMultiply(nullspace) * 10;
+                
+                for (int i = 0; i < 7; i++) {
+                    Solution[i] += ConvertDegrees(inter[0,i]);
+                }
+            }
             
             Value = Function(Solution);
         }

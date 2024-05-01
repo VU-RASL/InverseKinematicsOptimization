@@ -661,7 +661,7 @@ namespace BioIK {
         private bool NullspaceOptimize = false;
 
         private Matrix<double> empty = Matrix<double>.Build.Dense(7,7,0);
-        // private Matrix<double> identity = Matrix<double>.Build.DenseIdentity(3);
+        
         private Matrix<double> identity = Matrix<double>.Build.DenseIdentity(7);
 
         public BFGS(int dimensionality, System.Func<double[], double> function, System.Func<double[], double[]> gradient, bool NullspaceEnabled) {
@@ -734,7 +734,7 @@ namespace BioIK {
                 var subtraction = identity.Subtract(nullspace);
                 
                 var grad = Matrix<double>.Build.DenseOfColumnArrays(G);
-                var inter = grad.TransposeThisAndMultiply(nullspace) * 0.75;
+                var inter = grad.TransposeThisAndMultiply(nullspace) * -0.75;
                 
                 for (int i = 0; i < 7; i++) {
                     Solution[i] += ConvertDegrees(inter[0,i]);
@@ -753,8 +753,6 @@ namespace BioIK {
 
         private DenseMatrix ComputeJacobian(double theta1, double theta2, double theta3, double theta4, double theta5, double theta6, double theta7)
         {   
-            // Debug.Log("When you're done testing, uncomment me!!");
-
             theta1 = ConvertRadians(theta1);
             theta2 = ConvertRadians(theta2);
             theta3 = ConvertRadians(theta3);
@@ -763,7 +761,6 @@ namespace BioIK {
             theta6 = ConvertRadians(theta6);
             theta7 = ConvertRadians(theta7);
 
-            // var jacobian = DenseMatrix.OfArray(new double[,] {{0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}});
             var jacobian = DenseMatrix.OfArray(new double[,] {{0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}, {0,0,0,0,0,0,0}});
 
             var sinTheta1 = System.Math.Sin(theta1);
@@ -782,58 +779,34 @@ namespace BioIK {
             jacobian[0, 0] = -0.28504 * sinTheta1 + 0.28868 * sinTheta5 * cosTheta1Theta2 * cosTheta6Theta7 + 0.22499 * sinTheta5 * cosTheta1Theta2 + 0.28868 * sinTheta1Theta2 * sinTheta3Theta4 * sinTheta6Theta7 - 0.1067 * sinTheta1Theta2 * cosTheta3 - 0.28868 * sinTheta1Theta2 * cosTheta5 * cosTheta3Theta4 * cosTheta6Theta7 - 0.22499 * sinTheta1Theta2 * cosTheta5 * cosTheta3Theta4 - 0.1067 * sinTheta1Theta2;
             jacobian[1, 0] = 0.28868 * sinTheta5 * sinTheta1Theta2 * cosTheta6Theta7 + 0.22499 * sinTheta5 * sinTheta1Theta2 - 0.28868 * sinTheta3Theta4 * sinTheta6Theta7 * cosTheta1Theta2 + 0.28504 * System.Math.Cos(theta1) + 0.1067 * cosTheta3 * cosTheta1Theta2 + 0.28868 * cosTheta5 * cosTheta1Theta2 * cosTheta3Theta4 * cosTheta6Theta7 + 0.22499 * cosTheta5 * cosTheta1Theta2 * cosTheta3Theta4 + 0.1067 * cosTheta1Theta2;
             jacobian[2, 0] = 0;
-            // jacobian[3, 0] = 0;
-            // jacobian[4, 0] = 0;
-            // jacobian[5, 0] = 1;
 
             jacobian[0, 1] = 0.28868 * sinTheta5 * cosTheta1Theta2 * cosTheta6Theta7 + 0.22499 * sinTheta5 * sinTheta1Theta2 + 0.28868 * sinTheta1Theta2 * sinTheta3Theta4 * sinTheta6Theta7 - 0.1067 * sinTheta1Theta2 * cosTheta3 - 0.28868 * sinTheta1Theta2 * cosTheta5 * cosTheta3Theta4 * cosTheta6Theta7 - 0.22499 * sinTheta1Theta2 * cosTheta5 * cosTheta3Theta4 - 0.1067 * sinTheta1Theta2;
             jacobian[1, 1] = 0.28868 * sinTheta5 * sinTheta1Theta2 * cosTheta6Theta7 + 0.22499 * sinTheta5 * sinTheta1Theta2 - 0.28868 * sinTheta3Theta4 * sinTheta6Theta7 * cosTheta1Theta2 + 0.1067 * cosTheta1Theta2 * cosTheta3 + 0.28868 * cosTheta5 * cosTheta1Theta2  * cosTheta3Theta4 * cosTheta6Theta7 + 0.22499 * cosTheta1Theta2 * cosTheta5 * cosTheta3Theta4 + 0.1067 * cosTheta1Theta2;
             jacobian[2, 1] = 0;
-            // jacobian[3, 1] = 0;
-            // jacobian[4, 1] = 0;
-            // jacobian[5, 1] = 1;
-
+            
             jacobian[0, 2] = -1 * (0.1067 * sinTheta3 + 0.28868 * sinTheta3Theta4 * cosTheta5 * cosTheta6Theta7 + 0.22499 * sinTheta3Theta4 * cosTheta5 + 0.28868 * sinTheta6Theta7 * cosTheta3Theta4) * cosTheta1Theta2;
             jacobian[1, 2] = -1 * (0.1067 * sinTheta3 + 0.28868 * sinTheta3Theta4 * cosTheta5 * cosTheta6Theta7 + 0.22499 * sinTheta3Theta4 * cosTheta5 + 0.28868 * sinTheta6Theta7 * cosTheta3Theta4) * sinTheta1Theta2;
             jacobian[2, 2] = -0.28868 * sinTheta3Theta4 * sinTheta6Theta7 + 0.1067 * cosTheta3 + 0.28868 * cosTheta5 * cosTheta3Theta4 * cosTheta6Theta7 + 0.22499 * cosTheta5 * cosTheta3Theta4;
-            // jacobian[3, 2] = sinTheta1Theta2;
-            // jacobian[4, 2] = -1 * cosTheta1Theta2;
-            // jacobian[5, 2] = 0;
-
+            
             jacobian[0, 3] = -1 * (0.28868 * sinTheta3Theta4 * cosTheta5 * cosTheta6Theta7 + 0.22499 * sinTheta3Theta4 * cosTheta5 + 0.28868 * sinTheta6Theta7 * cosTheta3Theta4) * cosTheta1Theta2;
             jacobian[1, 3] = -1 * (0.28868 * sinTheta3Theta4 * cosTheta5 * cosTheta6Theta7 + 0.22499 * sinTheta3Theta4 * cosTheta5 + 0.28868 * sinTheta6Theta7 * cosTheta3Theta4) * sinTheta1Theta2;
             jacobian[2, 3] = -0.28868 * sinTheta3Theta4 * sinTheta6Theta7 + 0.28868 * cosTheta5 * cosTheta3Theta4 * cosTheta6Theta7 + 0.22499 * cosTheta5 * cosTheta3Theta4;
-            // jacobian[3, 3] = sinTheta1Theta2;
-            // jacobian[4, 3] = -1 * cosTheta1Theta2;
-            // jacobian[5, 3] = 0;
-
+            
             jacobian[0, 4] = -0.28868 * sinTheta5 * cosTheta1Theta2 * cosTheta3Theta4 * cosTheta6Theta7 - 0.22499 * sinTheta5 * cosTheta1Theta2 * cosTheta3Theta4 + 0.28868 * sinTheta1Theta2 * cosTheta5 * cosTheta6Theta7 + 0.22499 * sinTheta1Theta2 * cosTheta5;
             jacobian[1, 4] = -0.28868 * sinTheta5 * sinTheta1Theta2 * cosTheta3Theta4 * cosTheta6Theta7 - 0.22499 * sinTheta5 * sinTheta1Theta2 * cosTheta3Theta4 - 0.28868 * cosTheta1Theta2 * cosTheta5 * cosTheta6Theta7 - 0.22499 * cosTheta1Theta2 * cosTheta5;
             jacobian[2, 4] = -1 * (0.28868 * cosTheta6Theta7 + 0.22499) * sinTheta5 * sinTheta3Theta4;
-            // jacobian[3, 4] = sinTheta3Theta4 * cosTheta1Theta2;
-            // jacobian[4, 4] = sinTheta1Theta2 * sinTheta3Theta4;
-            // jacobian[5, 4] = -1 * cosTheta3Theta4;
-
+            
             jacobian[0, 5] = -0.28868 * sinTheta5 * sinTheta1Theta2 * sinTheta6Theta7 - 0.28868 * sinTheta3Theta4 * cosTheta1Theta2 * cosTheta6Theta7 - 0.28868 * sinTheta6Theta7 * cosTheta5 * cosTheta1Theta2 * cosTheta3Theta4;
             jacobian[1, 5] = 0.28868 * sinTheta5 * sinTheta6Theta7 * cosTheta1Theta2 - 0.28868 * sinTheta1Theta2 * sinTheta3Theta4 * cosTheta6Theta7 - 0.28868 * sinTheta1Theta2 * sinTheta6Theta7 * cosTheta5 * cosTheta3Theta4;
             jacobian[2, 5] = -0.28868 * sinTheta3Theta4 * sinTheta6Theta7 * cosTheta5 + 0.28868 * cosTheta3Theta4 * cosTheta6Theta7;
-            // jacobian[3, 5] = -1 * sinTheta5 * cosTheta1Theta2 * cosTheta3Theta4 + sinTheta1Theta2 * cosTheta5;
-            // jacobian[4, 5] = -1 * sinTheta5 * sinTheta1Theta2 * cosTheta3Theta4 - cosTheta5 * cosTheta1Theta2;
-            // jacobian[5, 5] = -1 * sinTheta5 * sinTheta3Theta4;
-
+            
             jacobian[0, 6] = -0.28868 * sinTheta5 * sinTheta1Theta2 * sinTheta6Theta7 - 0.28868 * sinTheta3Theta4 * cosTheta1Theta2 * cosTheta6Theta7 - 0.28868 * sinTheta6Theta7 * cosTheta5 * cosTheta1Theta2 * cosTheta3Theta4;
             jacobian[1, 6] = 0.28868 * sinTheta5 * sinTheta6Theta7 * cosTheta1Theta2 - 0.28868 * sinTheta1Theta2 * sinTheta3Theta4 * cosTheta6Theta7 - 0.28868 * sinTheta1Theta2 * sinTheta6Theta7 * cosTheta5  * cosTheta3Theta4;
             jacobian[2, 6] = -0.28868 * sinTheta3Theta4 * sinTheta6Theta7 * cosTheta5 + 0.28868 * cosTheta3Theta4 * cosTheta6Theta7;
-            // jacobian[3, 6] = -1 * sinTheta5 * cosTheta1Theta2 * cosTheta3Theta4 + sinTheta1Theta2 * cosTheta5;
-            // jacobian[4, 6] = -1 * sinTheta5 * sinTheta1Theta2 * cosTheta3Theta4 - cosTheta5 * cosTheta1Theta2 ;
-            // jacobian[5, 6] = -1 * sinTheta5 * sinTheta3Theta4;
-
+            
             return jacobian;
         }
 
-        private Matrix<double> ComputeInverse(DenseMatrix j) {
-            return j.PseudoInverse();
-        }
         // don't use this...
         public void Minimise(double[] values, double timeout) {
             for(int i=0; i<Dimensionality; i++) {

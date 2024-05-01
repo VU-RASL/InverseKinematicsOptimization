@@ -435,16 +435,6 @@
         "com.unity.xr.interaction.toolkit": "2.3.0"
       }
     },
-    "org.mixedrealitytoolkit.uxcomponents.noncanvas": {
-      "version": "file:MixedReality/org.mixedrealitytoolkit.uxcomponents.noncanvas-3.1.1.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {
-        "org.mixedrealitytoolkit.uxcore": "3.1.0",
-        "org.mixedrealitytoolkit.spatialmanipulation": "3.0.0",
-        "org.mixedrealitytoolkit.standardassets": "3.0.0"
-      }
-    },
     "org.mixedrealitytoolkit.uxcore": {
       "version": "file:MixedReality/org.mixedrealitytoolkit.uxcore-3.2.0.tgz",
       "depth": 0,

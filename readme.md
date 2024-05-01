@@ -55,6 +55,8 @@ _My project running on a Hololens_
 
 You should be able to deploy it directly using Holographic Remoting with the Hololens. See <https://learn.microsoft.com/en-us/windows/mixed-reality/mrtk-unity/mrtk3-overview/test-and-deploy/streaming> (It works but requires a hefty internet connection). If you want to actually install it on the Hololens, you'll need to install Visual Studio and build the project... (see these for steps: <https://learn.microsoft.com/en-us/windows/mixed-reality/develop/unity/build-and-deploy-to-hololens> and <https://learn.microsoft.com/en-us/windows/mixed-reality/develop/advanced-concepts/using-visual-studio>). All of the build settings _should_ be ok, but I've only tested it on Windows, so good luck on other OSes!
 
+If you clone the project and open up the project, you might get an empty scene at the beginning. Open up the `Demo` scene and you should be good to go!
+
 ## Analysis
 
 My nullspace exploration does actually work - it does not destroy the overall orientation of the pose, which I was worried about. However, it does not make much of a visual impact on the poses - for most of my example poses, you cannot tell a noticeable difference between the nullspace and traditional optimized poses. 

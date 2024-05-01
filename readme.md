@@ -10,6 +10,10 @@ I messed up my previous repository -- what's the word? -- royally. (Some very we
 
 _Improving Augmented Reality Pose Redirection Using Potential Functions and Gradient Descent_
 
+## Video Link
+
+<https://youtu.be/LdZbrv7qrX8>
+
 ## Research Question
 
 _Can we improve the pose mimicry of our inverse kinematics setup by using nullspace optimization?_
